@@ -29,14 +29,12 @@ Main
             <td>{{ el.count }}</td>
             <td>
               <a type="button" class="btn btn-secondary btn-sm" href="/book/{{ el.id }}/view"><b>Подробиці...</b></a></td>
-                  {% if user.is_authenticated %}
 
                     <td><a type="button" class="btn btn-white btn-sm" href="/book/{{ el.id }}/edit">
                     <img src="https://cdn-icons-png.flaticon.com/512/84/84380.png" width="24" height="24"></a></td>
 <!--              <td><a type="button" class="btn btn-white btn-sm" href="/book/{{ el.id }}/delete">Видалити</a></td>-->
                     <td><a type="button" class="btn btn-white btn-sm" href="/book/{{ el.id }}/delete">
                     <img src="https://mpng.subpng.com/20180711/wru/kisspng-computer-icons-clip-art-delete-image-icon-5b45dc96b07912.1758854315313051107228.jpg" width="24" height="24"></a></td>
-                  {% endif %}
 
           </tr>
         {% endfor %}

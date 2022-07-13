@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %}
+Редагувати данні про книгу
+{% endblock %}
+
+
+{% block content %}
+        <h3>Редагування інформації про книгу:</h3>
+        <form action="" method="post" autocomplete="off">
+                {% csrf_token %}
+                <label for="title"><b>Назва книги</b></label>
+                {{ form.title }}
+                <label for="author"><b>Автор</b></label>
+                {{ form.author }}
+                <label for="text"><b>Короткий опис</b></label>
+                {{ form.short_text }}
+                <label for="text"><b>Повний опис</b></label>
+                {{ form.text }}
+                <label for="published"><b>рік видання</b></label>
+                {{ form.published }}
+                <label for="count"><b>Кількість книжок</b></label>
+                {{ form.count }}
+                <button type="submit" class="btn btn-success">Внести зміни</button>
+        </form>
+{% endblock %}

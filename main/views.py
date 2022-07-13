@@ -37,6 +37,34 @@ def book_view(request, id=1):
         raise Http404
     return render(request, 'main/book_view.html', {'title': 'Книги', 'book': book})
 
+def book_edit(request, id=0):
+    if request.method == "GET":
+        if id == 0:
+            form = BookForm()
+        else:
+            book = Book.objects.get(id=id)
+            form = BookForm(instance=book)
+        return render(request, 'main/book_edit.html', {'form': form})
+    else:
+        if id == 0:
+            form = BookForm(request.POST)
+        else:
+            book = Book.objects.get(id=id)
+            form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+        return redirect('main')
+
+
+def book_delete(request, id=0):
+    try:
+        book = Book.objects.get(id=id)
+        book.delete()
+    except Book.DoesNotExist:
+        raise Http404
+    books = Book.objects.order_by('-id')
+    numbers = 'із ' + str(len(Book.objects.all()))
+    return render(request, 'main/index_tab.html', {'title': 'Книги', 'books': books, 'numbers': numbers})
 
 
 def index_tab(request):
