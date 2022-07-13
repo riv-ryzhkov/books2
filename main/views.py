@@ -1,5 +1,6 @@
 from random import randint
 
+from django.http import Http404
 from django.shortcuts import render, redirect
 from rest_framework import generics
 from faker import Faker
@@ -28,6 +29,15 @@ def index(request):
     # books = Book.objects.filter(id__lt=5)
     return render(request, 'main/index.html', {'title': 'Головна сторінка', 'books': books})
     # return render(request, 'main/index.html')
+
+def book_view(request, id=1):
+    try:
+        book = Book.objects.get(id=id)
+    except Book.DoesNotExist:
+        raise Http404
+    return render(request, 'main/book_view.html', {'title': 'Книги', 'book': book})
+
+
 
 def index_tab(request):
     # books = Book.objects.all()
