@@ -1,0 +1,72 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Main
+{% endblock %}
+
+{% block content %}
+<h3>Всі книжки нашої бібліотеки <i>(таблиця {{ numbers }} найменувань)</i></h3>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col"><b>#</b></th>
+      <th scope="col"><b>Назва</b></th>
+      <th scope="col"><b>Автор</b></th>
+      <th scope="col"><b>Опис</b></th>
+      <th scope="col"><b>Кількість</b></th>
+
+      </th>
+    </tr>
+    </thead>
+  <tbody>
+      {% if books %}
+        {% for el in books %}
+          <tr>
+            <th scope="row">{{ el.id }}</th>
+            <td>{{ el.title }}</td>
+            <td>{{ el.author }}</td>
+            <td>{{ el.text }}</td>
+            <td>{{ el.count }}</td>
+            <td>
+              <a type="button" class="btn btn-secondary btn-sm" href="/book/{{ el.id }}/view"><b>Подробиці...</b></a></td>
+                  {% if user.is_authenticated %}
+
+                    <td><a type="button" class="btn btn-white btn-sm" href="/book/{{ el.id }}/edit">
+                    <img src="https://cdn-icons-png.flaticon.com/512/84/84380.png" width="24" height="24"></a></td>
+<!--              <td><a type="button" class="btn btn-white btn-sm" href="/book/{{ el.id }}/delete">Видалити</a></td>-->
+                    <td><a type="button" class="btn btn-white btn-sm" href="/book/{{ el.id }}/delete">
+                    <img src="https://mpng.subpng.com/20180711/wru/kisspng-computer-icons-clip-art-delete-image-icon-5b45dc96b07912.1758854315313051107228.jpg" width="24" height="24"></a></td>
+                  {% endif %}
+
+          </tr>
+        {% endfor %}
+      {% else %}
+            <p>Sorry, there is no any book in our list...</p>
+    {% endif %}
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+<!-- <h1> Головна сторінка нашого проекту... </h1>-->
+<!--        {% if books %}-->
+<!--            {% for el in books %}-->
+<!--                 <div class="alert alert-success mt-1">-->
+<!--                  <h3><u>{{ el.title }}</u></h3>-->
+<!--                  <p><b><i>{{ el.author }}</i></b></p>-->
+<!--                  <p><i>{{ el.text }}</i></p>-->
+<!--                  <p><b>Рік видання: </b>    {{ el.published }}</p>-->
+<!--                  <p><b>Кількість: </b>          {{ el.count }}</p>-->
+<!--                 </div>-->
+<!--            {% endfor %}-->
+<!--        {% else %}-->
+<!--            <p>В нашому каталозі такі книги відсутні. Сорі...</p>-->
+<!--        {% endif %}-->
+{% endblock %}

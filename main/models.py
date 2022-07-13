@@ -1,10 +1,10 @@
 from django.db import models
 
 class Book(models.Model):
-    title = models.CharField('Назва', max_length=50)
-    author = models.CharField('Автор', max_length=50)
-    text = models.TextField('Опис')
-    published = models.CharField('Рік видання', max_length=4)
+    title = models.CharField('Назва', max_length=50, default='The title of the book')
+    author = models.CharField('Автор', max_length=50, default='Unknown author')
+    text = models.TextField('Опис', default='Text about the book')
+    published = models.CharField('Рік видання', max_length=4, default='2022')
     count = models.IntegerField('Кількість', default=1)
     created = models.DateTimeField(auto_now_add=True)
 
