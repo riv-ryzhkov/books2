@@ -9,7 +9,7 @@ class Book(models.Model):
     published = models.CharField('Рік видання', max_length=4, default='2022')
     count = models.IntegerField('Кількість', default=1)
     created = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, verbose_name='Користувач', on_delete=models.PROTECT, null=True)
+    # user = models.ForeignKey(User, verbose_name='Користувач', on_delete=models.PROTECT, default=1, null=True)
 
     def __str__(self):
         return self.title
