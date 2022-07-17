@@ -23,9 +23,9 @@ Main
         {% for el in books %}
           <tr>
             <th scope="row">{{ el.id }}</th>
-            <td>{{ el.title }}</td>
+            <td>{{ el.title|truncatewords:3 }}</td>
             <td>{{ el.author }}</td>
-            <td>{{ el.text }}</td>
+            <td>{{ el.text|truncatewords:16 }}</td>
             <td>{{ el.count }}</td>
             <td>
               <a type="button" class="btn btn-secondary btn-sm" href="/book/{{ el.id }}/view"><b>Подробиці...</b></a></td>

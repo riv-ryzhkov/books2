@@ -14,7 +14,7 @@
             <div class="alert alert-success mt-1">
                 <h3><u>{{ el.title }}</u></h3>
                 <p><b><i>{{ el.author }}</i></b></p>
-                <p><i>{{ el.text }}</i></p>
+                <p><i>{{ el.text|truncatewords:48 }}</i></p>
                 <p><b>Рік видання:</b>            {{ el.published }}</p>
                 <p><b>Кількість книжок:</b>   {{ el.count }}</p>
 

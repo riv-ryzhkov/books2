@@ -1,13 +1,22 @@
 from random import randint
 
+from django.forms import model_to_dict
 from django.http import Http404
 from django.shortcuts import render, redirect
-from rest_framework import generics
+from rest_framework import generics, viewsets, mixins
 from faker import Faker
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import *
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
+from rest_framework.viewsets import GenericViewSet
+
 
 from .models import Book
 from .forms import BookForm
-from .serializers import BookSerializers
+from .serializers import *
 
 
 class BookAPIView(generics.ListAPIView):
@@ -15,6 +24,132 @@ class BookAPIView(generics.ListAPIView):
     serializer_class = BookSerializers
 
 
+class BookAPIjson(APIView):
+    def get(self, request):
+        filter = request.GET.get('id')
+        b = Book.objects.all().filter(id__gt=filter)
+        b = b.values()
+        return Response({'title': 'GET работает!!!!', 'data': b})
+
+    def post(self, request):
+        post_new = Book.objects.create(
+            title = request.data['title'],
+            author = request.data['author'],
+            text = request.data['text'],
+            published = request.data['published'],
+            count = request.data['count']
+        )
+        return Response({'post': model_to_dict(post_new)})
+
+
+
+
+# class BookViewSet(viewsets.ModelViewSet):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializerAuto
+
+
+
+
+# class BookViewSet(
+#             mixins.CreateModelMixin,   # создает
+#             mixins.RetrieveModelMixin, # выделяет
+#             mixins.UpdateModelMixin,   # обновляет
+#             mixins.DestroyModelMixin,  # удаляет
+#             mixins.ListModelMixin,     # показывает список
+#             GenericViewSet             # главный родительский класс
+# ):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializerAuto
+
+class BookAPIPagination(PageNumberPagination):
+    page_size = 3
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+
+class BookAPIList(generics.ListCreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializerAuto
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+    pagination_class = BookAPIPagination
+
+class BookAPIUpdate(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializerAuto
+    permission_classes = (IsAuthenticated, )
+    authentication_classes = (TokenAuthentication, )
+
+
+class BookAPIDestroy(generics.RetrieveDestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializerAuto
+    permission_classes = (IsAdminOrReadOnly, )
+
+
+
+# class BookAPIAutoCreate(generics.ListCreateAPIView):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializerAuto
+#
+#
+# class BookAPIAutoUpdate(generics.UpdateAPIView):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializerAuto
+#
+#
+# class BookAPIAutoCRUD(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializerAuto
+
+
+class BookAPIser(APIView):
+    def get(self, request):
+        b = Book.objects.all()
+        return Response({'posts': BookSerializer(b, many=True).data})
+
+    def post(self, request):
+        serializer = BookSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        # post_new = Book.objects.create(
+        #     title = request.data['title'],
+        #     author = request.data['author'],
+        #     text = request.data['text'],
+        #     published = request.data['published'],
+        #     count = request.data['count']
+        # )
+        # return Response({'post': BookSerializer(post_new).data})
+        return Response({'post': serializer.data})
+
+    def put(self, request, *args, **kwargs):
+        id = kwargs.get('id', None)
+        if not id:
+            return Response({'error': 'Method PUT not allowed'})
+
+        try:
+            instance = Book.objects.get(id=id)
+        except:
+            return Response({'error': 'Object does not exists'})
+
+        serializer = BookSerializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'post': serializer.data})
+
+    def delete(self, request, *args, **kwargs):
+        id = kwargs.get('id', None)
+        if not id:
+            return Response({'error': 'Method DELETE not allowed'})
+
+        try:
+            instance = Book.objects.get(id=id)
+            instance.delete()
+        except:
+            return Response({'error': 'Method DELETE not allowed. Object does not exists'})
+
+        return Response({'delete': 'post with id = ' + str(id) + ' deleted!'})
 
 
 
@@ -101,7 +236,7 @@ def book_new(request):
     b_new = Book.objects.create(
         title=b.company(),
         author=b.last_name(),
-        text=' '.join(b.sentences(3)),
+        text=' '.join(b.sentences(20)),
         published = str(b.year()),
         count = randint(1, 20)
     )
