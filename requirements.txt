@@ -9,7 +9,7 @@ defusedxml==0.7.1
 backports.zoneinfo==0.2.1
 Django== 3.2.14
 djangorestframework==3.13.1
-djangorestframework-simplejwt==4.8.0
+djangorestframework-simplejwt==4.4.0
 djoser==2.1.0
 Faker==13.15.0
 python-dateutil==2.8.2
