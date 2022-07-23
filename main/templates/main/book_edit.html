@@ -1,3 +1,4 @@
+
 {% extends 'main/base.html' %}
 
 
@@ -10,14 +11,12 @@
         <h3>Редагування інформації про книгу:</h3>
         <form action="" method="post" autocomplete="off">
                 {% csrf_token %}
-                <label for="title"><b>Назва книги</b></label>
-                {{ form.title }}
-                <label for="author"><b>Автор</b></label>
-                {{ form.author }}
-                <label for="text"><b>Короткий опис</b></label>
-                {{ form.short_text }}
-                <label for="text"><b>Повний опис</b></label>
-                {{ form.text }}
+                <label for="title"><b>Назва книги</b></label><br>
+                {{ form.title }}<br>
+                <label for="author"><b>Автор</b></label><br>
+                {{ form.author }}<br>
+                <label for="text"><b>Повний опис</b></label><br>
+                {{ form.text }}<br>
                 <label for="published"><b>рік видання</b></label>
                 {{ form.published }}
                 <label for="count"><b>Кількість книжок</b></label>

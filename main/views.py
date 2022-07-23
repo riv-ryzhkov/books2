@@ -1,8 +1,11 @@
 from random import randint
 
+from django.contrib.auth.decorators import login_required
 from django.forms import model_to_dict
 from django.http import Http404
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from rest_framework import generics, viewsets, mixins
 from faker import Faker
 from rest_framework.authentication import TokenAuthentication
@@ -12,6 +15,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 from rest_framework.viewsets import GenericViewSet
+
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 from .models import Book
@@ -153,44 +158,109 @@ class BookAPIser(APIView):
 
 
 
+class BookHome(ListView):
+    model = Book
+    template_name = 'main/index.html'
+    context_object_name = 'books'
+    extra_context = {'title': 'Головна сторінка'}
+    allow_empty = False
 
-def index(request):
+    def get_queryset(self):
+        # last_id = Book.objects.first().id
+        return Book.objects.filter(is_shown=True)
 
-    books = Book.objects.all()
-    # books = Book.objects.order_by('-id')
-    # books = Book.objects.order_by('-id')[:3]
-    # books = Book.objects.filter(author='ГОСТ1')
-    # books = Book.objects.filter(id__gt=2)
-    # books = Book.objects.filter(id__lt=5)
-    return render(request, 'main/index.html', {'title': 'Головна сторінка', 'books': books})
-    # return render(request, 'main/index.html')
+# def index(request):
+#     books = Book.objects.all()
+#     return render(request, 'main/index.html', {'title': 'Головна сторінка', 'books': books})
 
-def book_view(request, id=1):
-    try:
-        book = Book.objects.get(id=id)
-    except Book.DoesNotExist:
-        raise Http404
-    return render(request, 'main/book_view.html', {'title': 'Книги', 'book': book})
+class IndexTab(ListView):
+    model = Book
+    template_name = 'main/index_tab.html'
+    context_object_name = 'books'
+    allow_empty = False
 
-def book_edit(request, id=0):
-    if request.method == "GET":
-        if id == 0:
-            form = BookForm()
-        else:
-            book = Book.objects.get(id=id)
-            form = BookForm(instance=book)
-        return render(request, 'main/book_edit.html', {'form': form})
-    else:
-        if id == 0:
-            form = BookForm(request.POST)
-        else:
-            book = Book.objects.get(id=id)
-            form = BookForm(request.POST, instance=book)
-        if form.is_valid():
-            form.save()
-        return redirect('main')
+    def get_context_data(self, *, object_list=None, **kwargs):
+        books = Book.objects.filter(is_shown=True)
+        books = books.order_by('-id')
+        numbers = 'із ' + str(len(Book.objects.all()))
+        return {'title': 'Книги', 'books': books, 'numbers': numbers}
+
+    def get_queryset(self):
+        return Book.objects.filter(is_shown=True)
+
+# def index_tab(request):
+#     books = Book.objects.order_by('-id')
+#     numbers = 'із ' + str(len(Book.objects.all()))
+#     return render(request, 'main/index_tab.html', {'title': 'Книги', 'books': books, 'numbers': numbers})
 
 
+class BookView(DetailView):
+    model = Book
+    template_name = 'main/book_view.html'
+    pk_url_kwarg = 'id'
+    context_object_name = 'book'
+    allow_empty = False
+
+
+# def book_view(request, id=1):
+#     try:
+#         book = Book.objects.get(id=id)
+#     except Book.DoesNotExist:
+#         raise Http404
+#     return render(request, 'main/book_view.html', {'title': 'Книги', 'book': book})
+
+
+class CreateBook(CreateView):
+    form_class = BookForm
+    template_name = 'main/create.html'
+    success_url = reverse_lazy('home')
+
+
+
+# def create(request):
+#     error = ''
+#     if request.method == 'POST':
+#         form = BookForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('home')
+#     form = BookForm()
+#     context = {
+#         'form': form
+#     }
+#     return render(request, 'main/create.html', context)
+#     # return render(request, 'main/create.html')
+
+
+class BookEdit(LoginRequiredMixin, UpdateView):
+    login_url = '/auth/login/?next=/tabs/'
+    model = Book
+    template_name = 'main/book_edit.html'
+    fields = ['title', 'author', 'text', 'published', 'count']
+    success_url = reverse_lazy('main')
+    pk_url_kwarg = 'id'
+    allow_empty = False
+
+# def book_edit(request, id=0):
+#     if request.method == "GET":
+#         if id == 0:
+#             form = BookForm()
+#         else:
+#             book = Book.objects.get(id=id)
+#             form = BookForm(instance=book)
+#         return render(request, 'main/book_edit.html', {'form': form})
+#     else:
+#         if id == 0:
+#             form = BookForm(request.POST)
+#         else:
+#             book = Book.objects.get(id=id)
+#             form = BookForm(request.POST, instance=book)
+#         if form.is_valid():
+#             form.save()
+#         return redirect('main')
+
+
+@login_required
 def book_delete(request, id=0):
     try:
         book = Book.objects.get(id=id)
@@ -202,12 +272,6 @@ def book_delete(request, id=0):
     return render(request, 'main/index_tab.html', {'title': 'Книги', 'books': books, 'numbers': numbers})
 
 
-def index_tab(request):
-    # books = Book.objects.all()
-    # books = Book.objects.order_by('-id')[:10]
-    books = Book.objects.order_by('-id')
-    numbers = 'із ' + str(len(Book.objects.all()))
-    return render(request, 'main/index_tab.html', {'title': 'Книги', 'books': books, 'numbers': numbers})
 
 
 
@@ -215,21 +279,6 @@ def index_tab(request):
 def about(request):
     return render(request, 'main/about.html')
 
-def create(request):
-    error = ''
-    if request.method == 'POST':
-        form = BookForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    form = BookForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'main/create.html', context)
-    # return render(request, 'main/create.html')
-
-# Create your views here.
 
 def book_new(request):
     b = Faker()
@@ -238,6 +287,7 @@ def book_new(request):
         author=b.last_name(),
         text=' '.join(b.sentences(20)),
         published = str(b.year()),
+        is_shown = True,
         count = randint(1, 20)
     )
     b_new.save()

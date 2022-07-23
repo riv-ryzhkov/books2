@@ -8,6 +8,7 @@ class Book(models.Model):
     author = models.CharField('Автор', max_length=50, default='Unknown author')
     text = models.TextField('Опис', default='Text about the book')
     published = models.CharField('Рік видання', max_length=4, default='2022')
+    is_shown = models.BooleanField(default=True, verbose_name='Показувати')
     count = models.IntegerField('Кількість', default=1)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Створено')
     user = models.ForeignKey(User, verbose_name='Користувач', on_delete=models.PROTECT, default=1, null=True)
