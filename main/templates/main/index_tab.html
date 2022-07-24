@@ -19,8 +19,8 @@ Main
     </tr>
     </thead>
   <tbody>
-      {% if books %}
-        {% for el in books %}
+      {% if page_obj %}
+        {% for el in page_obj %}
           <tr>
             <th scope="row">{{ el.id }}</th>
             <td>{{ el.title|truncatewords:3 }}</td>
@@ -50,13 +50,6 @@ Main
     {% endif %}
   </tbody>
 </table>
-
-
-
-
-
-
-
 
 
 

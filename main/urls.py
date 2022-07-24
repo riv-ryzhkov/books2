@@ -11,7 +11,7 @@ from .views import *
 urlpatterns = [
     path('', BookHome.as_view(), name='home'),
     # path('', views.index, name='home'),
-    path('about', views.about, name='about'),
+    path('about/', views.about, name='about'),
     path('tabs/', IndexTab.as_view(), name='main'),
     # path('tabs', views.index_tab, name='main'),
     # path('create', views.create, name='create'),

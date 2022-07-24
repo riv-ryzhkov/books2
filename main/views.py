@@ -1,6 +1,7 @@
 from random import randint
 
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.forms import model_to_dict
 from django.http import Http404
 from django.shortcuts import render, redirect
@@ -159,6 +160,7 @@ class BookAPIser(APIView):
 
 
 class BookHome(ListView):
+    paginate_by = 10 #передает автоматически paginator и page_obj
     model = Book
     template_name = 'main/index.html'
     context_object_name = 'books'
@@ -174,16 +176,18 @@ class BookHome(ListView):
 #     return render(request, 'main/index.html', {'title': 'Головна сторінка', 'books': books})
 
 class IndexTab(ListView):
+    paginate_by = 3
     model = Book
     template_name = 'main/index_tab.html'
     context_object_name = 'books'
+    extra_context = {'numbers': 'із ' + str(len(Book.objects.all()))}
     allow_empty = False
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        books = Book.objects.filter(is_shown=True)
-        books = books.order_by('-id')
-        numbers = 'із ' + str(len(Book.objects.all()))
-        return {'title': 'Книги', 'books': books, 'numbers': numbers}
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     books = Book.objects.filter(is_shown=True)
+    #     books = books.order_by('-id')
+    #     numbers = 'із ' + str(len(Book.objects.all()))
+    #     return {'title': 'Книги', 'books': books, 'numbers': numbers}
 
     def get_queryset(self):
         return Book.objects.filter(is_shown=True)
@@ -211,6 +215,7 @@ class BookView(DetailView):
 
 
 class CreateBook(CreateView):
+    paginate_by = 10
     form_class = BookForm
     template_name = 'main/create.html'
     success_url = reverse_lazy('home')
@@ -277,7 +282,14 @@ def book_delete(request, id=0):
 
 
 def about(request):
-    return render(request, 'main/about.html')
+
+    context_list = Book.objects.all()
+    paginator = Paginator(context_list, 3)
+
+    page_num = request.GET.get('page')
+    page_obj = paginator.get_page(page_num)
+
+    return render(request, 'main/about.html', {'title': 'About site', 'books_page': page_obj})
 
 
 def book_new(request):
@@ -295,5 +307,5 @@ def book_new(request):
     # books = list(Book.objects.all())
     books = Book.objects.order_by('-id')[:10]
     numbers = '10 нових із ' + str(len(Book.objects.all()))
-    return render(request, 'main/index_tab.html', {'title': 'Книги', 'books': books, 'numbers': numbers})
+    return render(request, 'main/book_view.html', {'title': 'Книги', 'book': b_new, 'books': books, 'numbers': numbers})
 

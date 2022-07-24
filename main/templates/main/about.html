@@ -1,12 +1,38 @@
 {% extends 'main/base.html' %}
 
 {% block title %}
-About us
+Проект "Books"
 {% endblock %}
 
 {% block content %}
-    <h1>Інформація про нас</h1>
-    <p>Основна інформація щодо нас і нашого проекту...</p>
+    <h4>У нас в наявності наступні книжки:</h4>
+<!--    <p> Основна  інформація сайту...</p>-->
+    {% if books_page %}
+        {% for el in books_page %}
+<!--            <div class="alert alert-warning mt-2">-->
+<!--            <div class="alert alert-info mt-2">-->
+            <div class="alert alert-success mt-1">
+                <h3><u>{{ el.title }}</u></h3>
+                <p><b><i>{{ el.author }}</i></b></p>
+                <p><i>{{ el.text|truncatewords:48 }}</i></p>
+                <p><b>Рік видання:</b>            {{ el.published }}</p>
+                <p><b>Кількість книжок:</b>   {{ el.count }}</p>
+
+                <p><b>Зареєстровано:</b>  {{ el.created }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>В даном каталозі записи відсутні</p>
+    {% endif %}
+<nav>
+    <ul>
+        {% for p in books_page.paginator.page_range %}
+        <li>
+            <a href="?page={{ p }}">{{ p }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</nav>
 {% endblock %}
 
 
