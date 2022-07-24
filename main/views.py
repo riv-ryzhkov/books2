@@ -176,7 +176,7 @@ class BookHome(ListView):
 #     return render(request, 'main/index.html', {'title': 'Головна сторінка', 'books': books})
 
 class IndexTab(ListView):
-    paginate_by = 3
+    paginate_by = 4
     model = Book
     template_name = 'main/index_tab.html'
     context_object_name = 'books'
