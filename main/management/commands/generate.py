@@ -1,6 +1,7 @@
 from random import randint
 
 from django.core.management.base import BaseCommand, CommandError
+# from main.models import Book
 from main.models import Book
 from faker import Faker
 

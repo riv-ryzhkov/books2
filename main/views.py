@@ -180,7 +180,8 @@ class IndexTab(ListView):
     model = Book
     template_name = 'main/index_tab.html'
     context_object_name = 'books'
-    extra_context = {'numbers': 'із ' + str(len(Book.objects.all()))}
+    # extra_context = {'numbers': 'із ' + str(len(Book.objects.all()))}
+    # extra_context = {'numbers': 'WORKING!!!!'}
     allow_empty = False
 
     # def get_context_data(self, *, object_list=None, **kwargs):

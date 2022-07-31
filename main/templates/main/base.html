@@ -29,10 +29,15 @@
                 <a href="/auth/login/?next=/tabs/"  class="nav-link px-2 link-dark text-white">Login</a>
               {% endif %}
           </li>
-      </ul>
+         </ul>
     </header>
         <style> .right {text-align: right;}</style>
-        <p class="right"><a type="button" class="btn btn-success btn-sm" href="/book/new"><b>+Дод.Вип.</b></a><i>{% now "d N, Y, H:i" %}</i></p>
+        <p class="right"><a type="button" class="btn btn-success btn-sm" href="/book/new"><b>+Дод.Вип.</b></a><i>{% now "d N, Y, H:i" %}</i>
+            {% if user.is_authenticated %}
+            <a type="button" class="btn btn-white btn-sm" href="/silk/">
+                    <img src="https://cdn.buttercms.com/uvhceTSIQzmx9DuDPxJV" width="24" height="24"></a>
+            {% endif %}
+        </p>
   </div>
     </header>
 

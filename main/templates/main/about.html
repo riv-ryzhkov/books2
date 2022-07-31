@@ -5,34 +5,32 @@
 {% endblock %}
 
 {% block content %}
-    <h4>У нас в наявності наступні книжки:</h4>
-<!--    <p> Основна  інформація сайту...</p>-->
-    {% if books_page %}
-        {% for el in books_page %}
-<!--            <div class="alert alert-warning mt-2">-->
-<!--            <div class="alert alert-info mt-2">-->
-            <div class="alert alert-success mt-1">
-                <h3><u>{{ el.title }}</u></h3>
-                <p><b><i>{{ el.author }}</i></b></p>
-                <p><i>{{ el.text|truncatewords:48 }}</i></p>
-                <p><b>Рік видання:</b>            {{ el.published }}</p>
-                <p><b>Кількість книжок:</b>   {{ el.count }}</p>
+ Це проект навчальний для підтримки курсу з "Django" в Університеті ім.Альфреда Нобеля.<br>
+ Основні url, які використовуються в проекті наступні:<br>
+    ''<br>
+    'admin/'<br>
+    'silk/'<br>
+    'about/'<br>
+    'tabs/'<br>
+    'create/'v
+    'book/view/<int:id>/'<br>
+    'book/edit/<int:id>/'<br>
+    'book/delete/<int:id>/'<br>
+    'book/new/'<br><br>
 
-                <p><b>Зареєстровано:</b>  {{ el.created }}</p>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>В даном каталозі записи відсутні</p>
-    {% endif %}
-<nav>
-    <ul>
-        {% for p in books_page.paginator.page_range %}
-        <li>
-            <a href="?page={{ p }}">{{ p }}</a>
-        </li>
-        {% endfor %}
-    </ul>
-</nav>
-{% endblock %}
-
+            а також для підтримки API:<br>
+    'api/v3/<int:pk>/'<br>
+    'api/v3/detail/<int:pk>/'<br>
+    'api/v3/book/'<br>
+    'api/v3/book/<int:pk>/'<br>
+    'api/v3/bookdelete/<int:pk>/'<br>
+<br>
+    'api/v3/auth/'<br>
+    'api/v3/auth/users/'<br>
+    r'^auth/'<br>
+ <br>
+<br>
+<b>* Важливо! <br> Оскільки сайт створено для навчання та демонстрації,
+    режим   DEBUG = True   залишено свідомо для контролю роботи сайту.</b>
+                            {% endblock %}
 

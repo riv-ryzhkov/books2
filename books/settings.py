@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-gc(9pj()!9_%49__xmybj6e*tna13l%-=m^=ak(54xo$6m@gyp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = [*]
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     # 'django_extensions',
     'djoser',
+    'silk',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'silk.middleware.SilkyMiddleware',
+    'main.middleware.SimpleMiddleware',
 ]
 
 ROOT_URLCONF = 'books.urls'
@@ -79,13 +82,22 @@ WSGI_APPLICATION = 'books.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'Postgres34',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
