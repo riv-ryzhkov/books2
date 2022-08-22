@@ -84,7 +84,7 @@ class BookAPIUpdate(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializerAuto
     permission_classes = (IsAuthenticated, )
-    authentication_classes = (TokenAuthentication, )
+    # authentication_classes = (TokenAuthentication, )
 
 
 class BookAPIDestroy(generics.RetrieveDestroyAPIView):
@@ -292,6 +292,9 @@ def about(request):
 
     return render(request, 'main/about.html', {'title': 'About site', 'books_page': page_obj})
 
+
+def start(request):
+    return render(request, 'main/start.html')
 
 def book_new(request):
     b = Faker()

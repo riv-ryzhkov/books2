@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'main',
     'rest_framework',
     'rest_framework.authtoken',
-    # 'django_extensions',
+    'django_extensions',
     'djoser',
     'silk',
 ]

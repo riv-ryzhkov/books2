@@ -13,7 +13,7 @@
 <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-0 border-bottom">
       <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="{% url 'start' %}"></use></svg>
           <span class="fs-4"><b>Бібліотека</b></span>
       </a>
       <ul class="nav col-12 col-md-auto mb-6 justify-content-center mb-md-0">
@@ -44,6 +44,8 @@
     <div class="container">
         {% block content %}{% endblock %}
     </div>
+
+            {% block content1 %}{% endblock %}
 
     <div class="container">
         {% if page_obj.has_other_pages %}
@@ -99,10 +101,11 @@
   <footer class="p-3 bg-secondary text-white">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
         <li><a href="{% url 'home' %}" class="nav-link px-2 link-dark text-white"><b>Перелік книг</b></a></li>
+        <li><a href="{% url 'main' %}" class="nav-link px-2 link-dark text-white"><b>Головна таблиця</b></a></li>
         <li><a href="{% url 'create' %}" class="nav-link px-2 link-dark text-white"><b>Додати книгу</b></a></li>
         <li><a href="{% url 'about' %}" class="nav-link px-2 link-dark text-white"><b>Про нас</b></a></li>
     </ul>
-    <p class="text-center text-white">© 2022 Company Nobel University, Inc</p>
+    <p class="text-center text-white">© 2022 Company Alfred Nobel University, Inc</p>
   </footer>
 
 </body>

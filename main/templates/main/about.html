@@ -5,32 +5,33 @@
 {% endblock %}
 
 {% block content %}
- Це проект навчальний для підтримки курсу з "Django" в Університеті ім.Альфреда Нобеля.<br>
- Основні url, які використовуються в проекті наступні:<br>
-    ''<br>
-    'admin/'<br>
-    'silk/'<br>
-    'about/'<br>
-    'tabs/'<br>
-    'create/'v
-    'book/view/<int:id>/'<br>
-    'book/edit/<int:id>/'<br>
-    'book/delete/<int:id>/'<br>
-    'book/new/'<br><br>
+<h3>Даний проект є навчальним для підтримки курсу з "Django" в Університеті ім.Альфреда Нобеля.</h3><br>
+<i><b>* Важливо!</b> Оскільки сайт створено для навчання та демонстрації,
+    режим   DEBUG = True   залишено свідомо для контролю роботи сайту.</i><br><br>
+<b>Основні url, які використовуються в проекті:</b><br>
+    <a href="{% url 'home' %}">''</a>----------&gt; Домашня сторінка<br>
+    <a href="/admin/">'/admin/'</a>----------&gt; Адмін-сторінка<br>
+    <a href="/silk/">'/silk/'</a>----------&gt; Статистика SILK<br>
+    <a href="{% url 'about' %}">'/about/'</a>----------&gt; Ця сторінка<br>
+    <a href="{% url 'main' %}">'/tabs/'</a>----------&gt; Головна таблиця сайту<br>
+    <a href="{% url 'create' %}">'/create/'</a>----------&gt; Додавання нової книги<br>
+    <a href="/book/view/1/">'/book/view/&lt;int:id&gt;/'</a>----------&gt; Перегляд інформації по книзі<br>
+    <a href="/book/edit/1/">'/book/edit/&lt;int:id&gt;/'</a>----------&gt; Редагування інформації по книзі<br>
+    <a href="/book/delete/1/">'/book/delete/&lt;int:id&gt;/'</a>----------&gt; Видалення книги<br>
+    <a href="{% url 'book_new' %}">'/book/new/'</a>----------&gt; Додавання випадкової книги<br>
 
             а також для підтримки API:<br>
-    'api/v3/<int:pk>/'<br>
-    'api/v3/detail/<int:pk>/'<br>
-    'api/v3/book/'<br>
-    'api/v3/book/<int:pk>/'<br>
-    'api/v3/bookdelete/<int:pk>/'<br>
+
+    <a href="/api/v1/">'/api/v1/'</a>----------&gt; API перелік книг<br>
+    <a href="/api/v3/book/">'/api/v3/book/'</a>----------&gt; API перелік книг<br>
+    <a href="/api/v3/book/update/1/">'/api/v3/book/update/cint:pk&gt;/'</a>----------&gt; API редагування книги (аутентифікація по Token)<br>
+    <a href="/api/v3/bookdelete/1/">'/api/v3/bookdelete/&lt;int:pk&gt;/'</a>----------&gt; API видалення книги<br>
 <br>
-    'api/v3/auth/'<br>
-    'api/v3/auth/users/'<br>
-    r'^auth/'<br>
+    <a href="/api/v3/auth/">'api/v3/auth/'</a>----------&gt; API авторизація<br>
+    <a href="/api/v3/auth/users/">'api/v3/auth/users/'</a>----------&gt; API перелік користувачів<br>
  <br>
+    <p>Командою python <b>manage.py generate &lt;num&gt;</b> додається &lt;num&gt; випадкових книжок для наповнення БД.</p>
 <br>
-<b>* Важливо! <br> Оскільки сайт створено для навчання та демонстрації,
-    режим   DEBUG = True   залишено свідомо для контролю роботи сайту.</b>
-                            {% endblock %}
+<br><br>
+{% endblock %}
 

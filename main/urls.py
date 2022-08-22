@@ -9,7 +9,8 @@ from .views import *
 # router.register(r'detail', BookViewSet)
 
 urlpatterns = [
-    path('', BookHome.as_view(), name='home'),
+    path('', views.start, name='start'),
+    path('home', BookHome.as_view(), name='home'),
     # path('', views.index, name='home'),
     path('about/', views.about, name='about'),
     path('tabs/', IndexTab.as_view(), name='main'),
@@ -38,7 +39,7 @@ urlpatterns = [
     # path('api/v4/', include(router.urls)),   # http://127.0.0.1:8000/api/v4/detail/
     # path('api/v3/detail/<int:pk>/', BookAPIAutoCRUD.as_view(), name='APIbookCRUD'),
     path('api/v3/book/', BookAPIList.as_view()),
-    path('api/v3/book/<int:pk>/', BookAPIUpdate.as_view()),
+    path('api/v3/book/update/<int:pk>/', BookAPIUpdate.as_view()),
     path('api/v3/bookdelete/<int:pk>/', BookAPIDestroy.as_view()),
     # path('post/<int:pk>/', BookAPIDestroy.as_view(), name='post'),
     # path('post/<int:id>/', views.book_view, name='post'),

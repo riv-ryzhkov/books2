@@ -1,0 +1,161 @@
+{
+    "method": "GET",
+    "url_path": "/about/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-01 15:12:13.266340"
+}{
+    "method": "GET",
+    "url_path": "/api/v3/book/update/1/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-01 15:16:06.209412"
+}{
+    "method": "GET",
+    "url_path": "/auth/login/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-01 15:16:11.636651"
+}{
+    "method": "POST",
+    "url_path": "/auth/login/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-01 15:16:14.501003"
+}{
+    "method": "GET",
+    "url_path": "/api/v3/book/update/1/",
+    "user": "user",
+    "datetime": "2022-08-01 15:16:17.676355"
+}{
+    "method": "GET",
+    "url_path": "/auth/login/",
+    "user": "user",
+    "datetime": "2022-08-01 15:16:26.767994"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:41:20.300372"
+}{
+    "method": "GET",
+    "url_path": "/favicon.ico",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:41:24.961461"
+}{
+    "method": "GET",
+    "url_path": "/tabs/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:41:33.665200"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:43:57.448331"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:44:06.835222"
+}{
+    "method": "GET",
+    "url_path": "/tabs/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:44:12.006448"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:44:14.705476"
+}{
+    "method": "GET",
+    "url_path": "/about/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:44:18.290931"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:44:21.936378"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:46:23.731390"
+}{
+    "method": "GET",
+    "url_path": "/home",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:46:26.547850"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:46:29.571901"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:49:50.880310"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:49:57.050709"
+}{
+    "method": "GET",
+    "url_path": "/home",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:50:00.176496"
+}{
+    "method": "GET",
+    "url_path": "/tabs/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:50:02.388592"
+}{
+    "method": "GET",
+    "url_path": "/create/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:50:04.055612"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:50:06.315007"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:50:43.378619"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:52:38.752950"
+}{
+    "method": "GET",
+    "url_path": "/home",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:52:44.998238"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:52:47.172456"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:53:54.545200"
+}{
+    "method": "GET",
+    "url_path": "/tabs/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:53:58.100729"
+}{
+    "method": "GET",
+    "url_path": "/tabs/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:54:21.812175"
+}{
+    "method": "GET",
+    "url_path": "/",
+    "user": "AnonymousUser",
+    "datetime": "2022-08-22 10:54:28.432626"
+}
